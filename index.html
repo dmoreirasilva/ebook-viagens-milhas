@@ -307,6 +307,11 @@ a{color:var(--gold);text-decoration:none}
   .chapter{padding:64px 0}
   .callout{padding:24px}
 }
+
+@media(max-width:768px){
+  .intro-grid{grid-template-columns:1fr !important}
+}
+
 </style>
 </head>
 <body>
@@ -324,7 +329,7 @@ a{color:var(--gold);text-decoration:none}
       concierge de viagens e proteção jurídica e como um gestor especializado faz tudo isso por você.
     </p>
     <div class="cover-author">
-      <div class="cover-avatar">DM</div>
+      <div class="cover-avatar" style="padding:0;overflow:hidden;background:none;flex-shrink:0;"><img src="diego.jpg" alt="Diego Moreira" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"></div>
       <div>
         <div class="cover-author-name">Diego Moreira</div>
         <div class="cover-author-role">Gestor de Viagens com Milhas</div>
@@ -404,31 +409,51 @@ a{color:var(--gold);text-decoration:none}
 <section class="chapter" style="background:var(--navy);color:var(--white);padding:96px 0">
   <div class="page">
     <p style="font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold2);margin-bottom:24px">A história por trás deste guia</p>
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);color:var(--white);margin-bottom:28px;line-height:1.2">
-      Tudo começou com uma filha<br>que eu precisava ver
-    </h2>
-    <p style="font-size:18px;color:rgba(255,255,255,.75);line-height:1.8;max-width:640px;margin-bottom:24px">
-      Quando era Major do Exército Brasileiro, liderava mais de 100 homens. Mas a tropa que mais importava para mim estava do outro lado do Brasil: minha filha.
-    </p>
-    <p style="font-size:17px;color:rgba(255,255,255,.65);line-height:1.8;max-width:640px;margin-bottom:24px">
-      Foi por ela que aprendi o que os programas de milhas podem realmente fazer. Cada passagem que eu conseguia com pontos era um abraço que não teria acontecido de outra forma. Aprendi que <strong style="color:var(--gold2)">gastos são viagens</strong>, e que a maioria das pessoas está deixando viagens incríveis vencerem na conta sem usar.
-    </p>
-    <p style="font-size:17px;color:rgba(255,255,255,.65);line-height:1.8;max-width:640px;margin-bottom:40px">
-      Hoje, como Gestor de Viagens com Milhas, faço por cada cliente o que aprendi na prática: transformo cada real gasto no cartão em passagens, hotéis e experiências que eles jamais imaginariam conseguir. Sem precisar aprender nada. Sem complicação. Feito por mim.
-    </p>
-    <div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
-        <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">+19</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Anos de liderança sob pressão</div>
+
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:64px;align-items:start">
+
+      <!-- Texto -->
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);color:var(--white);margin-bottom:28px;line-height:1.2">
+          Tudo começou com uma filha<br>que eu precisava ver
+        </h2>
+        <p style="font-size:18px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:24px">
+          Quando era Major do Exército Brasileiro, liderava mais de 100 homens. Mas a tropa que mais importava para mim estava do outro lado do Brasil: minha filha.
+        </p>
+        <p style="font-size:17px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:24px">
+          Foi por ela que aprendi o que os programas de milhas podem realmente fazer. Cada passagem que eu conseguia com pontos era um abraço que não teria acontecido de outra forma. Aprendi que <strong style="color:var(--gold2)">gastos são viagens</strong>, e que a maioria das pessoas está deixando viagens incríveis vencerem na conta sem usar.
+        </p>
+        <p style="font-size:17px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:40px">
+          Hoje, como Gestor de Viagens com Milhas, faço por cada cliente o que aprendi na prática: transformo cada real gasto no cartão em passagens, hotéis e experiências que eles jamais imaginariam conseguir. Sem precisar aprender nada. Sem complicação. Feito por mim.
+        </p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
+            <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">+19</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Anos de liderança sob pressão</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
+            <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">52+</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Clientes com gestão ativa</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
+            <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">2x</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Retorno mínimo garantido</div>
+          </div>
+        </div>
       </div>
-      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
-        <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">52+</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Clientes com gestão ativa</div>
+
+      <!-- Foto -->
+      <div style="position:sticky;top:100px">
+        <div style="border-radius:20px;overflow:hidden;border:2px solid rgba(201,150,61,.3);box-shadow:0 24px 64px rgba(0,0,0,.5);">
+          <img src="diego.jpg" alt="Diego Moreira, Gestor de Viagens com Milhas"
+               style="width:100%;display:block;object-fit:cover;object-position:top center;">
+        </div>
+        <div style="margin-top:16px;text-align:center">
+          <div style="font-weight:700;font-size:16px;color:var(--white)">Diego Moreira</div>
+          <div style="font-size:13px;color:var(--gold);margin-top:4px">Gestor de Viagens com Milhas</div>
+        </div>
       </div>
-      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
-        <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">2x</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Retorno mínimo garantido</div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -442,7 +467,7 @@ a{color:var(--gold);text-decoration:none}
     <div class="chapter-eyebrow"><span>1</span> A realidade dos seus pontos</div>
     <h2 class="chapter-title">Você já tem tudo para viajar muito mais do que imagina</h2>
     <p class="chapter-lead">
-      A maioria das pessoas que gasta acima de  por mês no cartão está, neste exato momento, deixando viagens incríveis vencerem sem usar.
+      A maioria das pessoas que gasta acima de R$ 15.000 por mês no cartão está, neste exato momento, deixando viagens incríveis vencerem sem usar.
     </p>
 
     <p>Pense no quanto você gastou no cartão nos últimos 12 meses. Alimentação, supermercado, combustível, assinaturas, contas da empresa, viagens, compras online. Multiplique pelo coeficiente de pontuação do seu cartão. O que aparece é um número que, nas mãos certas, se transforma em passagens, upgrades e experiências.</p>
