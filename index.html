@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gastos São Viagens: O Guia Completo de Gestão de Milhas | Diego Moreira</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0F3460;
+  --navy2:   #0A2444;
+  --navy3:   #071A30;
+  --gold:    #C9963D;
+  --gold2:   #E8B84B;
+  --gold3:   #F5D07A;
+  --cream:   #FAF8F3;
+  --surface: #F0EBE0;
+  --white:   #FFFFFF;
+  --text:    #1A1A2E;
+  --muted:   #6B7280;
+  --line:    #E2DDD4;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--cream);color:var(--text);font-family:"Inter",sans-serif;font-size:17px;line-height:1.75}
+h1,h2,h3,h4{font-family:"Playfair Display",serif;line-height:1.15;letter-spacing:-.01em}
+img{max-width:100%;display:block}
+a{color:var(--gold);text-decoration:none}
+
+/* ── PRINT / PDF ── */
+@media print {
+  .no-print{display:none}
+  body{font-size:14px}
+  .chapter{page-break-before:always}
+  .cover{page-break-after:always;min-height:100vh}
+}
+
+/* ── LAYOUT ── */
+.page{max-width:780px;margin:0 auto;padding:0 32px}
+.page-wide{max-width:960px;margin:0 auto;padding:0 32px}
+
+/* ── COVER ── */
+.cover{
+  background:linear-gradient(160deg, var(--navy3) 0%, var(--navy) 55%, #1A4A7A 100%);
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;top:-200px;right:-200px;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,150,61,.18),transparent 65%);
+  pointer-events:none;
+}
+.cover::after{
+  content:'';position:absolute;bottom:-100px;left:-100px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,150,61,.08),transparent 65%);
+  pointer-events:none;
+}
+.cover-inner{
+  position:relative;z-index:1;
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:80px 64px;
+  max-width:860px;margin:0 auto;width:100%;
+}
+.cover-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold2);margin-bottom:32px;
+}
+.cover-tag::before{content:'✦';font-size:9px}
+.cover-title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(48px,7vw,88px);
+  font-weight:700;color:var(--white);
+  line-height:1;letter-spacing:-.03em;
+  margin-bottom:12px;
+}
+.cover-title em{font-style:italic;color:var(--gold2)}
+.cover-subtitle{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(22px,3vw,36px);
+  color:rgba(255,255,255,.65);
+  font-style:italic;
+  margin-bottom:40px;
+  font-weight:400;
+}
+.cover-desc{
+  font-size:18px;color:rgba(255,255,255,.72);
+  max-width:520px;line-height:1.7;margin-bottom:56px;
+}
+.cover-author{
+  display:flex;align-items:center;gap:16px;
+  padding-top:32px;
+  border-top:1px solid rgba(201,150,61,.3);
+}
+.cover-avatar{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:20px;color:var(--navy);
+  flex-shrink:0;
+}
+.cover-author-name{font-weight:700;font-size:17px;color:var(--white)}
+.cover-author-role{font-size:13px;color:rgba(255,255,255,.5);margin-top:3px}
+.cover-ornament{
+  position:absolute;bottom:40px;right:64px;
+  font-size:120px;opacity:.06;
+  font-family:"Playfair Display",serif;
+  color:var(--white);
+  pointer-events:none;
+}
+
+/* ── ÍNDICE ── */
+.toc{background:var(--white);padding:80px 0;border-bottom:1px solid var(--line)}
+.toc-title{font-size:clamp(28px,4vw,42px);color:var(--navy);margin-bottom:48px}
+.toc-list{display:flex;flex-direction:column;gap:0}
+.toc-item{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 0;border-bottom:1px solid var(--line);
+  transition:color .2s;
+}
+.toc-item:last-child{border-bottom:none}
+.toc-num{
+  min-width:36px;height:36px;border-radius:50%;
+  background:var(--navy);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0;
+}
+.toc-item-title{font-weight:600;font-size:16px;color:var(--navy);flex:1}
+.toc-item-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.toc-dot{width:80px;height:1px;background:var(--line);flex-shrink:0}
+
+/* ── CAPÍTULO ── */
+.chapter{padding:96px 0;border-bottom:1px solid var(--line)}
+.chapter:last-of-type{border-bottom:none}
+.chapter-eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+}
+.chapter-eyebrow span{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--navy);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;
+}
+.chapter-title{font-size:clamp(28px,4.5vw,50px);color:var(--navy);margin-bottom:20px}
+.chapter-lead{
+  font-size:clamp(18px,2vw,22px);color:var(--muted);
+  line-height:1.6;max-width:640px;margin-bottom:48px;
+  border-left:3px solid var(--gold);padding-left:20px;
+}
+
+/* Parágrafo */
+.chapter p{margin-bottom:20px;font-size:17px;line-height:1.8;color:#2C2C3E}
+.chapter p strong{color:var(--navy);font-weight:700}
+
+/* ── CALLOUT ── */
+.callout{
+  background:linear-gradient(135deg,var(--navy),var(--navy2));
+  color:var(--white);
+  border-radius:16px;padding:36px 40px;
+  margin:40px 0;position:relative;overflow:hidden;
+}
+.callout::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;
+  border-radius:50%;background:rgba(201,150,61,.12);pointer-events:none;
+}
+.callout-icon{font-size:32px;margin-bottom:12px}
+.callout-title{font-family:"Playfair Display",serif;font-size:22px;color:var(--gold2);margin-bottom:10px}
+.callout p{color:rgba(255,255,255,.85);margin-bottom:0;font-size:16px}
+.callout-gold{background:linear-gradient(135deg,var(--gold),#A0722A);color:var(--navy)}
+.callout-gold .callout-title{color:var(--navy);font-weight:700}
+.callout-gold p{color:rgba(10,36,68,.85)}
+
+/* ── LISTA ESTILIZADA ── */
+.styled-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin:28px 0}
+.styled-list li{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px 20px;
+  background:var(--white);border:1px solid var(--line);
+  border-radius:10px;font-size:15px;line-height:1.6;
+}
+.styled-list li::before{
+  content:'✦';color:var(--gold);font-size:12px;margin-top:3px;flex-shrink:0;
+}
+.styled-list.large li{padding:20px 24px;font-size:16px}
+.styled-list.checks li::before{content:'✓';color:#22C55E;font-weight:700;font-size:14px}
+
+/* ── CARDS DE DESTAQUE ── */
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:32px 0}
+.highlight-card{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:14px;padding:28px;
+  border-top:3px solid var(--gold);
+  position:relative;overflow:hidden;
+}
+.highlight-card::after{
+  content:'';position:absolute;bottom:0;right:0;
+  width:80px;height:80px;
+  background:radial-gradient(circle,rgba(201,150,61,.06),transparent 70%);
+}
+.hc-icon{font-size:32px;margin-bottom:14px}
+.hc-title{font-weight:700;font-size:17px;color:var(--navy);margin-bottom:8px}
+.hc-text{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* ── CITAÇÃO ── */
+.quote-block{
+  background:var(--surface);border-radius:16px;
+  padding:40px 48px;margin:40px 0;
+  position:relative;
+}
+.quote-block::before{
+  content:'\201C';
+  font-family:"Playfair Display",serif;
+  font-size:80px;color:var(--gold);opacity:.3;
+  position:absolute;top:0;left:24px;line-height:1;
+}
+.quote-text{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(18px,2.5vw,24px);
+  color:var(--navy);font-style:italic;line-height:1.5;
+  position:relative;z-index:1;padding-top:16px;
+}
+.quote-author{font-size:13px;color:var(--muted);margin-top:16px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+
+/* ── COMPARATIVO ── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:32px 0}
+.compare-col{border-radius:14px;padding:28px;border:1px solid var(--line)}
+.compare-col.bad{background:#FEF2F2;border-color:#FECACA}
+.compare-col.good{background:#F0FDF4;border-color:#BBF7D0}
+.compare-col h4{font-size:16px;font-weight:700;margin-bottom:16px}
+.compare-col.bad h4{color:#991B1B}
+.compare-col.good h4{color:#166534}
+.compare-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.compare-list li{font-size:14px;line-height:1.5;display:flex;gap:8px;align-items:flex-start}
+.compare-list li::before{content:'✗';color:#EF4444;font-weight:700;flex-shrink:0}
+.compare-col.good .compare-list li::before{content:'✓';color:#22C55E}
+
+/* ── PLANOS ── */
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:40px 0}
+.plan-card{
+  border-radius:16px;padding:32px 24px;
+  border:2px solid var(--line);background:var(--white);
+  position:relative;text-align:center;
+  transition:transform .3s,box-shadow .3s;
+}
+.plan-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.1)}
+.plan-card.featured{border-color:var(--gold);background:var(--navy)}
+.plan-card .plan-icon{font-size:36px;margin-bottom:12px}
+.plan-card .plan-name{font-weight:800;font-size:18px;margin-bottom:4px;color:var(--navy)}
+.plan-card.featured .plan-name{color:var(--gold2)}
+.plan-card .plan-badge{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  background:var(--gold);color:var(--navy);padding:4px 10px;border-radius:20px;margin-bottom:14px;
+}
+.plan-price{font-family:"Playfair Display",serif;font-size:36px;font-weight:700;color:var(--navy);margin:12px 0 4px}
+.plan-card.featured .plan-price{color:var(--white)}
+.plan-price-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+.plan-card.featured .plan-price-sub{color:rgba(255,255,255,.5)}
+.plan-divider{height:1px;background:var(--line);margin:16px 0}
+.plan-card.featured .plan-divider{background:rgba(255,255,255,.1)}
+.plan-features{list-style:none;text-align:left;display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.plan-features li{font-size:13px;display:flex;gap:8px;align-items:flex-start;color:#374151}
+.plan-card.featured .plan-features li{color:rgba(255,255,255,.8)}
+.plan-features li::before{content:'✓';color:#22C55E;font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* ── STAT BOXES ── */
+.stats-row{display:flex;gap:20px;flex-wrap:wrap;margin:32px 0}
+.stat-box{
+  flex:1;min-width:160px;
+  background:var(--navy);color:var(--white);
+  border-radius:14px;padding:24px 20px;text-align:center;
+}
+.stat-val{font-family:"Playfair Display",serif;font-size:38px;color:var(--gold2);line-height:1}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+
+/* ── CTA FINAL ── */
+.cta-section{
+  background:linear-gradient(150deg,var(--navy3),var(--navy));
+  color:var(--white);padding:96px 0;text-align:center;
+}
+.cta-title{font-size:clamp(32px,5vw,56px);color:var(--white);margin-bottom:16px}
+.cta-title em{color:var(--gold2);font-style:italic}
+.cta-sub{font-size:18px;color:rgba(255,255,255,.65);max-width:500px;margin:0 auto 40px;line-height:1.7}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--navy);font-weight:800;font-size:17px;
+  padding:18px 44px;border-radius:8px;
+  transition:transform .25s,box-shadow .25s;
+}
+.btn-cta:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,150,61,.4);color:var(--navy)}
+
+/* ── SEPARADOR ORNAMENTAL ── */
+.ornament{text-align:center;color:var(--gold);font-size:18px;letter-spacing:8px;margin:40px 0;opacity:.5}
+
+/* ── RESPONSIVO ── */
+@media(max-width:640px){
+  .cover-inner{padding:48px 24px}
+  .plans-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .page{padding:0 20px}
+  .chapter{padding:64px 0}
+  .callout{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     CAPA
+══════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-tag">Guia Completo · Diego Moreira · Gestão de Viagens com Milhas</div>
+    <h1 class="cover-title">Gastos<br>São <em>Viagens</em></h1>
+    <p class="cover-subtitle">O guia completo para viajar mais, gastando o que você já gasta</p>
+    <p class="cover-desc">
+      Tudo o que você precisa saber sobre multiplicação de pontos, resgate inteligente de passagens,
+      concierge de viagens e proteção jurídica e como um gestor especializado faz tudo isso por você.
+    </p>
+    <div class="cover-author">
+      <div class="cover-avatar">DM</div>
+      <div>
+        <div class="cover-author-name">Diego Moreira</div>
+        <div class="cover-author-role">Gestor de Viagens com Milhas</div>
+      </div>
+    </div>
+  </div>
+  <div class="cover-ornament">✦</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ÍNDICE
+══════════════════════════════════════════ -->
+<section class="toc">
+  <div class="page">
+    <p style="font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conteúdo</p>
+    <h2 class="toc-title">O que você vai descobrir</h2>
+    <div class="toc-list">
+      <div class="toc-item">
+        <div class="toc-num">1</div>
+        <div>
+          <div class="toc-item-title">A realidade dos seus pontos</div>
+          <div class="toc-item-sub">Por que a maioria das pessoas perde milhas sem perceber</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">2</div>
+        <div>
+          <div class="toc-item-title">Multiplicação de pontos: como fazer seu saldo crescer</div>
+          <div class="toc-item-sub">Estratégias avançadas que gestores usam e você não conhece</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">3</div>
+        <div>
+          <div class="toc-item-title">Cotações a preços raros: a arte do resgate inteligente</div>
+          <div class="toc-item-sub">Como encontrar passagens que não aparecem para o público geral</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">4</div>
+        <div>
+          <div class="toc-item-title">Acesso global: todos os programas de milhas do mundo</div>
+          <div class="toc-item-sub">A vantagem de quem opera em múltiplos programas simultaneamente</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">5</div>
+        <div>
+          <div class="toc-item-title">Concierge de viagens: conforto e economia ao mesmo tempo</div>
+          <div class="toc-item-sub">O que um serviço completo de viagens realmente entrega</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">6</div>
+        <div>
+          <div class="toc-item-title">Assessoria jurídica: proteção que nenhum concorrente oferece</div>
+          <div class="toc-item-sub">Por que ter um escritório especializado do seu lado faz diferença</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">7</div>
+        <div>
+          <div class="toc-item-title">A garantia de 2x: como funciona na prática</div>
+          <div class="toc-item-sub">A promessa que nenhum outro gestor faz no Brasil</div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     INTRODUÇÃO
+══════════════════════════════════════════ -->
+<section class="chapter" style="background:var(--navy);color:var(--white);padding:96px 0">
+  <div class="page">
+    <p style="font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold2);margin-bottom:24px">A história por trás deste guia</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);color:var(--white);margin-bottom:28px;line-height:1.2">
+      Tudo começou com uma filha<br>que eu precisava ver
+    </h2>
+    <p style="font-size:18px;color:rgba(255,255,255,.75);line-height:1.8;max-width:640px;margin-bottom:24px">
+      Quando era Major do Exército Brasileiro, liderava mais de 100 homens. Mas a tropa que mais importava para mim estava do outro lado do Brasil: minha filha.
+    </p>
+    <p style="font-size:17px;color:rgba(255,255,255,.65);line-height:1.8;max-width:640px;margin-bottom:24px">
+      Foi por ela que aprendi o que os programas de milhas podem realmente fazer. Cada passagem que eu conseguia com pontos era um abraço que não teria acontecido de outra forma. Aprendi que <strong style="color:var(--gold2)">gastos são viagens</strong>, e que a maioria das pessoas está deixando viagens incríveis vencerem na conta sem usar.
+    </p>
+    <p style="font-size:17px;color:rgba(255,255,255,.65);line-height:1.8;max-width:640px;margin-bottom:40px">
+      Hoje, como Gestor de Viagens com Milhas, faço por cada cliente o que aprendi na prática: transformo cada real gasto no cartão em passagens, hotéis e experiências que eles jamais imaginariam conseguir. Sem precisar aprender nada. Sem complicação. Feito por mim.
+    </p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
+        <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">+19</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Anos de liderança sob pressão</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
+        <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">52+</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Clientes com gestão ativa</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.25);border-radius:10px;padding:16px 24px;text-align:center">
+        <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold2)">2x</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Retorno mínimo garantido</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CAPÍTULO 1
+══════════════════════════════════════════ -->
+<section class="chapter">
+  <div class="page">
+    <div class="chapter-eyebrow"><span>1</span> A realidade dos seus pontos</div>
+    <h2 class="chapter-title">Você já tem tudo para viajar muito mais do que imagina</h2>
+    <p class="chapter-lead">
+      A maioria das pessoas que gasta acima de  por mês no cartão está, neste exato momento, deixando viagens incríveis vencerem sem usar.
+    </p>
+
+    <p>Pense no quanto você gastou no cartão nos últimos 12 meses. Alimentação, supermercado, combustível, assinaturas, contas da empresa, viagens, compras online. Multiplique pelo coeficiente de pontuação do seu cartão. O que aparece é um número que, nas mãos certas, se transforma em passagens, upgrades e experiências.</p>
+
+    <p>O problema não é a falta de milhas. O problema é a falta de <strong>estratégia</strong> e <strong>tempo</strong> para transformar essas milhas em viagens de verdade.</p>
+
+    <div class="compare-grid">
+      <div class="compare-col bad">
+        <h4>❌ Sem gestão</h4>
+        <ul class="compare-list">
+          <li>Pontos acumulam e vencem sem uso</li>
+          <li>Passagens com milhas parecem sempre caras demais</li>
+          <li>Paga em dinheiro o que poderia ser de graça</li>
+          <li>Não sabe qual programa usar em cada situação</li>
+          <li>Perde promoções de transferência que aparecem por 48h</li>
+          <li>Viaja menos do que poderia e merece</li>
+        </ul>
+      </div>
+      <div class="compare-col good">
+        <h4>✓ Com gestão profissional</h4>
+        <ul class="compare-list compare-list" style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="display:flex;gap:8px;font-size:14px;line-height:1.5"><span style="color:#22C55E;font-weight:700;flex-shrink:0">✓</span>Pontos monitorados e estrategicamente usados</li>
+          <li style="display:flex;gap:8px;font-size:14px;line-height:1.5"><span style="color:#22C55E;font-weight:700;flex-shrink:0">✓</span>Passagens a preços que o público não acessa</li>
+          <li style="display:flex;gap:8px;font-size:14px;line-height:1.5"><span style="color:#22C55E;font-weight:700;flex-shrink:0">✓</span>Viagens com custo mínimo de bolso</li>
+          <li style="display:flex;gap:8px;font-size:14px;line-height:1.5"><span style="color:#22C55E;font-weight:700;flex-shrink:0">✓</span>Programa certo para cada destino e data</li>
+          <li style="display:flex;gap:8px;font-size:14px;line-height:1.5"><span style="color:#22C55E;font-weight:700;flex-shrink:0">✓</span>Todas as promoções capturadas em tempo real</li>
+          <li style="display:flex;gap:8px;font-size:14px;line-height:1.5"><span style="color:#22C55E;font-weight:700;flex-shrink:0">✓</span>Viaja mais, com mais conforto, gastando o mesmo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-title">O vencimento que ninguém conta</div>
+      <p>Os principais programas de fidelidade do Brasil expiram pontos entre 24 e 36 meses sem movimentação. Isso significa que, se você acumulou pontos e não os usou, ou não fez nenhuma transação no programa, eles simplesmente desaparecem. Sem aviso. Sem devolução. Uma viagem que você já tinha pago, e desperdiçou.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CAPÍTULO 2
+══════════════════════════════════════════ -->
+<section class="chapter" style="background:var(--surface)">
+  <div class="page">
+    <div class="chapter-eyebrow"><span>2</span> Multiplicação de pontos</div>
+    <h2 class="chapter-title">Como fazer o seu saldo crescer sem gastar mais</h2>
+    <p class="chapter-lead">
+      Você já está gastando. A questão é se está aproveitando tudo que esses gastos podem gerar, ou se está deixando a maioria dos pontos na mesa.
+    </p>
+
+    <p>A multiplicação de pontos não é só sobre acumular mais milhas. É sobre <strong>ativar os mecanismos certos</strong> nos momentos certos para que cada real gasto no cartão gere o máximo possível de retorno em viagens.</p>
+
+    <p>Existem estratégias que a maioria dos usuários comuns nunca vai descobrir porque exigem monitoramento constante, conhecimento técnico dos programas e velocidade de execução. É exatamente esse o trabalho do gestor.</p>
+
+    <div class="highlight-grid">
+      <div class="highlight-card">
+        <div class="hc-icon">📈</div>
+        <div class="hc-title">Bônus de transferência</div>
+        <div class="hc-text">Os programas oferecem periodicamente bônus de 30% a 100% ao transferir pontos de um banco para um programa de milhas. Essas janelas duram 48 a 72 horas. Monitoramos e ativamos para cada cliente no momento certo.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">💳</div>
+        <div class="hc-title">Otimização de cartões</div>
+        <div class="hc-text">Cada gasto tem um cartão ideal que gera o maior número de pontos. Supermercado, combustível, viagem, assinatura, cada categoria tem sua estratégia. Mapeamos e orientamos para maximizar o acúmulo sem trocar de hábitos.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">🔁</div>
+        <div class="hc-title">Transferências estratégicas</div>
+        <div class="hc-text">Pontos acumulados em um banco nem sempre são os mais úteis para o destino que você quer. Transferir para o programa certo, no momento certo, pode significar o dobro de aproveitamento do mesmo saldo.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">🎯</div>
+        <div class="hc-title">Programas de parceiros</div>
+        <div class="hc-text">Hotéis, locadoras, compras online, lojas parceiras, todos geram pontos que a maioria das pessoas ignora. Integramos todos os canais de acúmulo para que nada seja desperdiçado.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">📊</div>
+        <div class="hc-title">Monitoramento contínuo</div>
+        <div class="hc-text">Enviamos cotações personalizadas diariamente com os saldos de cada programa, oportunidades ativas e recomendações de ação. Você sabe sempre onde estão seus pontos e quanto valem em viagens reais.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">⚡</div>
+        <div class="hc-title">Promoções relâmpago</div>
+        <div class="hc-text">O mercado de milhas tem promoções que surgem e somem em horas. Estamos atentos 7 dias por semana para capturar cada oportunidade antes que ela desapareça, e notificamos você em tempo real quando faz sentido agir.</div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">Todo gasto no cartão é uma viagem esperando acontecer. A diferença entre quem viaja muito e quem não viaja não é a renda, é quem sabe transformar um em outro.</p>
+      <p class="quote-author">Diego Moreira · Gestor de Viagens com Milhas</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CAPÍTULO 3
+══════════════════════════════════════════ -->
+<section class="chapter">
+  <div class="page">
+    <div class="chapter-eyebrow"><span>3</span> Cotações a preços raros</div>
+    <h2 class="chapter-title">A arte de encontrar passagens que o público não vê</h2>
+    <p class="chapter-lead">
+      Existem espaços em voos de primeira classe, cabines executivas e rotas internacionais sendo emitidos com milhas a preços que a maioria das pessoas nunca vai encontrar pesquisando sozinha.
+    </p>
+
+    <p>O sistema de emissão de passagens com milhas não é democrático. Cada companhia aérea decide quantos assentos libera para resgate com pontos, em quais datas e em qual classe de cabine. Essas informações mudam constantemente, e quem sabe procurar no momento certo encontra oportunidades que simplesmente não existem para o usuário comum.</p>
+
+    <p>A cotação de passagens com milhas é uma das etapas mais técnicas e mais valiosas da gestão. Uma diferença de 20.000 a 60.000 milhas no mesmo trecho pode significar a diferença entre uma viagem que cabe nos seus pontos e uma que parece impossível.</p>
+
+    <div class="callout callout-gold">
+      <div class="callout-icon">✈️</div>
+      <div class="callout-title">O que significa "preço raro"?</div>
+      <p>São espaços de resgate que aparecem em janelas específicas, às vezes 330 dias antes da viagem, às vezes 24 horas antes. São cabines executivas com custo 40% menor que o tabelado. São conexões criativas entre programas que geram o mesmo trajeto com muito menos pontos. Não se acham por acaso. Se encontram com método.</p>
+    </div>
+
+    <p>Nossa equipe monitora constantemente os espaços disponíveis nos principais programas e companhias do mundo. Quando o destino do cliente é definido, buscamos ativamente as janelas de menor custo em milhas, independente do programa em que os pontos estão. Se precisar transferir, transferimos. Se precisar combinar programas, combinamos.</p>
+
+    <ul class="styled-list large">
+      <li>Busca ativa em múltiplos programas nacionais e internacionais simultaneamente</li>
+      <li>Identificação de espaços de resgate em datas e rotas alternativas com menor custo</li>
+      <li>Comparativo entre classe econômica premium, executiva e primeira classe, e quando cada uma compensa</li>
+      <li>Emissão de passagens de longa distância (intercontinentais) com pontos brasileiros usando programas parceiros internacionais</li>
+      <li>Monitoramento de liberação de assentos próximo à data de viagem, quando as companhias abrem novos espaços</li>
+    </ul>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-val">40%</div>
+        <div class="stat-lbl">Economia média vs emissão direta</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">+50</div>
+        <div class="stat-lbl">Programas monitorados</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">48h</div>
+        <div class="stat-lbl">Tempo médio de cotação</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CAPÍTULO 4
+══════════════════════════════════════════ -->
+<section class="chapter" style="background:var(--surface)">
+  <div class="page">
+    <div class="chapter-eyebrow"><span>4</span> Acesso global</div>
+    <h2 class="chapter-title">Todos os programas de milhas do mundo, trabalhando para você</h2>
+    <p class="chapter-lead">
+      O mercado de milhas brasileiro está conectado a dezenas de programas internacionais. Saber navegar entre eles é o que separa uma viagem comum de uma experiência extraordinária.
+    </p>
+
+    <p>Quando você acumula pontos em um banco brasileiro, eles podem ser transferidos para uma lista de programas de companhias aéreas de todo o mundo. Cada programa tem seu próprio mapa de parceiros, suas próprias regras de emissão e seus próprios preços em milhas para cada rota.</p>
+
+    <p>Um voo para Miami pode ser emitido via LATAM Pass, AAdvantage, Flying Blue, Avianca LifeMiles ou diversas outras. O mesmo voo. Preços completamente diferentes. Possibilidades completamente diferentes de aproveitamento dos seus pontos.</p>
+
+    <div class="highlight-grid">
+      <div class="highlight-card">
+        <div class="hc-icon">🌎</div>
+        <div class="hc-title">Programas das Américas</div>
+        <div class="hc-text">LATAM Pass, Smiles, TudoAzul, AAdvantage (American), MileagePlus (United), SkyMiles (Delta), Avianca LifeMiles, Copa ConnectMiles. Cada um com força diferente em rotas específicas.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">🌍</div>
+        <div class="hc-title">Programas Europeus</div>
+        <div class="hc-text">Flying Blue (Air France/KLM), Executive Club (British Airways), Miles&More (Lufthansa), Iberia Plus, TAP Miles&Go. Porta de entrada para toda a Europa com pontos brasileiros.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">🌏</div>
+        <div class="hc-title">Programas do Oriente</div>
+        <div class="hc-text">Skywards (Emirates), Enrich (Malaysia), Asia Miles (Cathay Pacific), KrisFlyer (Singapore Airlines). Para quem sonha com Ásia, Oceania ou Oriente Médio com conforto premium.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">🏨</div>
+        <div class="hc-title">Programas de Hotéis</div>
+        <div class="hc-text">Marriott Bonvoy, Hilton Honors, IHG Rewards, World of Hyatt. Conversão de pontos bancários para estadas em hotéis de luxo ao redor do mundo, além das passagens.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">💡</div>
+        <div class="hc-title">Estratégia cross-program</div>
+        <div class="hc-text">A mágica acontece quando combinamos múltiplos programas para um único trajeto. Acumular em um, transferir para outro com bônus, emitir num terceiro, o resultado é uma viagem que parecia impossível pelos seus pontos atuais.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-icon">🔍</div>
+        <div class="hc-title">Pesquisa sem limitação geográfica</div>
+        <div class="hc-text">Não existe destino fora do radar. Se existe voo comercial para lá, existe uma forma de chegar com milhas a um custo inteligente. Nossa assessoria não tem fronteiras, como as suas viagens não deveriam ter.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-title">Mesmo sem milhas do programa específico</div>
+      <p>Um dos maiores diferenciais do nosso serviço é que conseguimos emitir descontos em passagens mesmo quando você não tem milhas no programa daquela companhia específica. Através de transferências estratégicas entre programas parceiros, o destino que você quer se torna acessível com os pontos que você já tem.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CAPÍTULO 5
+══════════════════════════════════════════ -->
+<section class="chapter">
+  <div class="page">
+    <div class="chapter-eyebrow"><span>5</span> Serviço de Concierge</div>
+    <h2 class="chapter-title">Conforto e economia: não é uma escolha, é o padrão</h2>
+    <p class="chapter-lead">
+      Viajar bem não é um luxo para poucos. É o resultado de planejar com inteligência cada detalhe: do aeroporto ao hotel, do check-in ao último dia.
+    </p>
+
+    <p>O serviço de concierge de viagens vai além da passagem. Uma viagem bem estruturada economiza dinheiro, elimina estresse e cria memórias melhores. Cada detalhe que parece pequeno, o horário do voo de conexão, a categoria do hotel, o serviço de traslado, o acesso à sala VIP, soma para uma experiência completamente diferente.</p>
+
+    <p>Quando você tem um gestor olhando para a sua viagem de ponta a ponta, o resultado não é apenas mais barato, é mais confortável, mais organizado e mais memorável.</p>
+
+    <ul class="styled-list large">
+      <li><strong>Planejamento completo de roteiro:</strong> Definição do melhor trajeto, escalas estratégicas, datas com menor custo em milhas e maior conforto de viagem</li>
+      <li><strong>Acesso a salas VIP:</strong> Orientação sobre como acessar os lounges das principais companhias aéreas usando os benefícios do seu cartão, mesmo em voos econômicos</li>
+      <li><strong>Reserva de hotéis com milhas:</strong> Cotação e reserva em hotéis parceiros usando pontos acumulados, combinando com tarifas especiais para maximizar o conforto dentro do orçamento</li>
+      <li><strong>Upgrades de cabine:</strong> Identificação de oportunidades de upgrade para executiva ou primeira classe usando milhas complementares, voar na executiva pagando econômica</li>
+      <li><strong>Orientação de benefícios de cartão:</strong> Seguro viagem, proteção de bagagem, assistência médica, acesso a emergências, muitos clientes têm benefícios que nunca usaram</li>
+      <li><strong>Suporte durante a viagem:</strong> Estamos disponíveis para orientar em caso de cancelamentos, atrasos e necessidade de remarcação, para que nenhum imprevisto vire uma crise</li>
+      <li><strong>Economia em traslados e experiências:</strong> Indicações de operadores, transfers e experiências locais com o melhor custo-benefício, para que a viagem seja rica do início ao fim</li>
+    </ul>
+
+    <div class="quote-block">
+      <p class="quote-text">A viagem mais bonita não é a mais cara. É a que você conseguiu com inteligência. E quando alguém cuida de cada detalhe por você, o resultado é sempre melhor do que você imaginou.</p>
+      <p class="quote-author">Diego Moreira</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CAPÍTULO 6
+══════════════════════════════════════════ -->
+<section class="chapter" style="background:var(--navy);color:var(--white)">
+  <div class="page">
+    <div class="chapter-eyebrow" style="color:var(--gold2)"><span style="background:var(--gold);color:var(--navy)">6</span> Assessoria Jurídica</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,50px);color:var(--white);margin-bottom:20px">O diferencial que nenhum outro gestor de milhas no Brasil oferece</h2>
+    <p style="font-size:clamp(18px,2vw,22px);color:rgba(255,255,255,.7);line-height:1.6;max-width:640px;margin-bottom:48px;border-left:3px solid var(--gold);padding-left:20px">
+      Todos os nossos clientes têm acesso a um escritório de advocacia especializado em direito do consumidor e direito aeronáutico, sem custo adicional.
+    </p>
+
+    <p style="color:rgba(255,255,255,.75);margin-bottom:20px;line-height:1.8">O mercado de viagens é repleto de situações onde o passageiro sai prejudicado: voos cancelados sem reembolso, bagagens extraviadas sem indenização adequada, programas de fidelidade que alteram regras de resgate de forma unilateral, hotéis que não cumprem o que prometeram.</p>
+
+    <p style="color:rgba(255,255,255,.75);margin-bottom:40px;line-height:1.8">A maioria dos viajantes não tem tempo, nem conhecimento, nem energia para lutar pelos seus direitos nesses casos. O resultado é que as companhias continuam impunes e o passageiro continua no prejuízo.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:32px 0">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.2);border-radius:14px;padding:28px">
+        <div style="font-size:28px;margin-bottom:12px">⚖️</div>
+        <div style="font-weight:700;font-size:16px;color:var(--gold2);margin-bottom:8px">Voos cancelados e atrasados</div>
+        <p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6">Orientação e representação para garantir reembolso integral, reacomodação em voos alternativos, indenização por danos morais e ressarcimento de despesas extras.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.2);border-radius:14px;padding:28px">
+        <div style="font-size:28px;margin-bottom:12px">🧳</div>
+        <div style="font-weight:700;font-size:16px;color:var(--gold2);margin-bottom:8px">Bagagem extraviada ou danificada</div>
+        <p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6">Acompanhamento do processo de localização e indenização, garantindo que o cliente receba o valor justo e não seja prejudicado por burocracia das companhias.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.2);border-radius:14px;padding:28px">
+        <div style="font-size:28px;margin-bottom:12px">🔐</div>
+        <div style="font-weight:700;font-size:16px;color:var(--gold2);margin-bottom:8px">Proteção de pontos e milhas</div>
+        <p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6">Defesa dos direitos do cliente quando programas alteram regras de expiração, transferência ou resgate de forma unilateral e prejudicial, um risco real que poucas pessoas conhecem.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.2);border-radius:14px;padding:28px">
+        <div style="font-size:28px;margin-bottom:12px">🏨</div>
+        <div style="font-weight:700;font-size:16px;color:var(--gold2);margin-bottom:8px">Problemas com hotéis e operadoras</div>
+        <p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6">Assessoria em casos de overbooking, cancelamento de reservas, serviços não prestados e descumprimento de contrato por parte de operadoras turísticas.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.2);border-radius:14px;padding:28px">
+        <div style="font-size:28px;margin-bottom:12px">📑</div>
+        <div style="font-weight:700;font-size:16px;color:var(--gold2);margin-bottom:8px">Revisão de contratos</div>
+        <p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6">Análise de termos e condições de programas de fidelidade, contratos com agências e seguros de viagem, para que o cliente saiba exatamente o que está contratando.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,150,61,.2);border-radius:14px;padding:28px">
+        <div style="font-size:28px;margin-bottom:12px">🛡️</div>
+        <div style="font-weight:700;font-size:16px;color:var(--gold2);margin-bottom:8px">Sem custo para o cliente</div>
+        <p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6">Esse serviço está incluído em todos os níveis de parceria anual. Nenhum outro gestor de milhas no Brasil oferece assessoria jurídica especializada como parte do pacote.</p>
+      </div>
+    </div>
+
+    <div style="background:rgba(201,150,61,.1);border:1px solid rgba(201,150,61,.3);border-radius:14px;padding:32px;margin-top:16px">
+      <div style="font-size:22px;margin-bottom:8px">💬</div>
+      <p style="font-family:'Playfair Display',serif;font-size:19px;color:var(--gold2);font-style:italic;margin-bottom:8px">"Não oferecemos proteção jurídica por marketing. Oferecemos porque acreditamos que quem viaja bem também merece estar protegido enquanto viaja."</p>
+      <p style="font-size:13px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.05em;text-transform:uppercase">Diego Moreira</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CAPÍTULO 7
+══════════════════════════════════════════ -->
+<section class="chapter">
+  <div class="page">
+    <div class="chapter-eyebrow"><span>7</span> A garantia de 2x</div>
+    <h2 class="chapter-title">A promessa que nenhum outro gestor de milhas faz no Brasil</h2>
+    <p class="chapter-lead">
+      Garantimos no mínimo o dobro do valor investido na parceria em viagens reais. Não é slogan. É compromisso com responsabilidade.
+    </p>
+
+    <p>Nenhum investimento faz sentido sem que você entenda claramente o que vai receber em troca. Por isso somos diretos: a nossa obrigação é garantir que você obtenha no mínimo o dobro do valor investido em viagens reais ao longo dos 12 meses de parceria.</p>
+
+    <p>Isso é calculado concretamente: em passagens emitidas, hotéis reservados com milhas, upgrades conquistados, benefícios ativados. Não em "valor estimado de milhas". Em viagens reais que você vai fazer.</p>
+
+    <div class="callout callout-gold">
+      <div class="callout-icon">📊</div>
+      <div class="callout-title">Como o cálculo de retorno funciona na prática</div>
+      <p>Somamos o valor de face de todas as passagens emitidas com milhas (o que você pagaria em dinheiro no mesmo assento na mesma data), as diárias de hotéis reservadas com pontos, os upgrades e benefícios ativados. O total precisa ser pelo menos 2x o valor da parceria anual. Se não for, conversamos sobre as próximas etapas.</p>
+    </div>
+
+    <p>A garantia existe porque fazemos triagem cuidadosa antes de aceitar qualquer cliente. Só iniciamos a parceria com quem gasta o suficiente no cartão e está disposto a executar as estratégias recomendadas. Quando esses dois fatores estão presentes, o retorno de 2x não é promessa, é consequência.</p>
+
+    <ul class="styled-list checks">
+      <li>Calculado em viagens reais, não em estimativas abstratas de valor de milha</li>
+      <li>Monitorado e reportado mensalmente para total transparência</li>
+      <li>Válido para todos os níveis de parceria anual</li>
+      <li>Condicionado à execução das estratégias recomendadas pelo gestor</li>
+      <li>Sem letras miúdas, funciona porque triamos quem entra</li>
+    </ul>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-val">2x</div>
+        <div class="stat-lbl">Retorno mínimo garantido</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">12m</div>
+        <div class="stat-lbl">Prazo da parceria anual</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">100%</div>
+        <div class="stat-lbl">Done-for-you</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- ══════════════════════════════════════════
+     CTA FINAL
+══════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="page" style="text-align:center">
+    <p style="font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold2);margin-bottom:20px">Próximo passo</p>
+    <h2 class="cta-title">Seus gastos já estão<br><em>te devendo viagens</em></h2>
+    <p class="cta-sub">
+      Uma conversa de 15 minutos com Diego é suficiente para entender exatamente quanto em viagens você está deixando para trás, e o que é possível fazer com o que você já tem.
+    </p>
+    <a href="https://wa.me/5500000000000" class="btn-cta" style="margin-bottom:16px">
+      💬 Conversar com Diego no WhatsApp
+    </a>
+    <p style="font-size:13px;color:rgba(255,255,255,.35);margin-top:16px">
+      Diego avalia seu perfil antes de aceitar · Vagas limitadas · Atendimento exclusivo 1:1
+    </p>
+
+    <div style="margin-top:64px;padding-top:40px;border-top:1px solid rgba(201,150,61,.2)">
+      <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--gold2);font-style:italic;margin-bottom:8px">"Gastos são viagens."</div>
+      <p style="font-size:13px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.1em;text-transform:uppercase">Diego Moreira · Gestor de Viagens com Milhas</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="background:var(--navy3);padding:40px 0;text-align:center">
+  <div style="font-size:13px;color:rgba(255,255,255,.3);line-height:2">
+    Diego Moreira, Gestor de Viagens com Milhas<br>
+    <span style="color:var(--gold);font-weight:600">Gastos são viagens.</span> · Atendimento online para todo o Brasil
+  </div>
+</footer>
+
+</body>
+</html>
